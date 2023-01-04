@@ -12,13 +12,17 @@ pipeline {
         }
 
         stage('Test') {
-            agent any
+            agent {
+                docker{
+                    image 'qnib/pytest'
+                }
+            }
             steps {
-                sh 'echo "testing the repo"'
+                sh 'py.test --junit-xml tests/test-reports/results.xml src/test_main.py'
             }
             post {
                 always {
-                    sh 'echo "tracking the result of testing"'
+                    junit 'test-reports/results.xml'
                 }
             }
         }
