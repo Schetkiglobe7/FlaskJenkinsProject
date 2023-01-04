@@ -11,7 +11,18 @@ pipeline {
                 }
             }
             steps {
-                sh 'python --version'
+                sh 'docker build -t flask-app:latest .'
+            }
+        }
+
+        stage('Deploy') {
+            agent{
+                docker{
+                    image 'python2-alpine'
+                }
+            }
+            steps {
+                sh 'run -p 8085:8085 --name flask-app -d flask-app'
             }
         }
     }
