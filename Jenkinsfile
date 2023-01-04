@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             agent any
             steps {
-                sh 'echo "building the repo"'
+                sh 'docker rm python-docker'
             }
         }
 
