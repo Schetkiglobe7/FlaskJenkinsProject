@@ -7,7 +7,10 @@ pipeline {
         stage('Build') {
             agent any
             steps {
-                sh 'docker rm python-docker'
+                sh '''
+                docker stop python-docker
+                docker rm python-docker
+                '''
             }
         }
 
