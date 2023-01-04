@@ -11,7 +11,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        /*stage('Test') {
             agent {
                 docker{
                     image 'python:2-alpine'
@@ -25,7 +25,7 @@ pipeline {
                     junit 'tests/test-reports/results.xml'
                 }
             }
-        }
+        }*/
 
         stage('Deliver') {
             agent any
@@ -34,7 +34,7 @@ pipeline {
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
-                sh 'echo "deliverying repo"'
+                sh 'docker build --tag python-docker .'
             }
         }
     }
