@@ -34,7 +34,14 @@ pipeline {
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
-                sh 'docker build --tag python-docker .'
+                sh 'docker build --tag python-docker:latest .'
+            }
+        }
+
+        stage('Run') {
+            agent any
+            steps {
+                sh 'docker run -p 8085:8085 --name python-docker -d python-docker:latest'
             }
         }
     }
