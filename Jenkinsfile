@@ -18,7 +18,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'py.test --junit-xml tests/test-reports/results.xml src/test_main.py'
+                sh 'py.test --junit-xml tests/test-reports/results.xml src/tests/test_main.py'
             }
             post {
                 always {
