@@ -3,4 +3,4 @@ COPY . /FlaskJenkinsProject
 WORKDIR /FlaskJenkinsProject
 RUN pip install -r requirements.txt
 EXPOSE 8085
-CMD [ "python", "src/main.py" ]
+CMD [ "python", "src/app.py" ]
