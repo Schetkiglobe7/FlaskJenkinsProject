@@ -5,24 +5,32 @@ pipeline {
     }
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'python:2-alpine'
-                }
-            }
+            agent any
             steps {
-                sh 'docker build -t flask-app:latest .'
+                sh 'echo "building the repo"'
             }
         }
 
-        stage('Deploy') {
-            agent{
-                docker{
-                    image 'python2-alpine'
+        stage('Test') {
+            agent any
+            steps {
+                sh 'echo "testing the repo"'
+            }
+            post {
+                always {
+                    sh 'echo "tracking the result of testing"'
                 }
             }
+        }
+
+        stage('Deliver') {
+            agent any
+            environment {
+                VOLUME = '$(pwd)/sources:/src'
+                IMAGE = 'cdrx/pyinstaller-linux:python2'
+            }
             steps {
-                sh 'run -p 8085:8085 --name flask-app -d flask-app'
+                sh 'echo "deliverying repo"'
             }
         }
     }
