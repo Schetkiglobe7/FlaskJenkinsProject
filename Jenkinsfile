@@ -3,6 +3,9 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
+	}
     stages {
         stage('Build') {
             agent any
@@ -37,14 +40,18 @@ pipeline {
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
-                sh 'docker build --tag python-docker:latest .'
+                sh 'docker build --tag schetkiglobe7/python-docker:latest .'
             }
         }
 
         stage('Run') {
             agent any
             steps {
-                sh 'docker run -p 8085:5000 --name python-docker -d python-docker:latest'
+                //sh 'docker run -p 8085:5000 --name python-docker -d python-docker:latest'
+                sh '''
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                docker push schetkiglobe7/python-docker:latest
+                '''
             }
         }
     }
