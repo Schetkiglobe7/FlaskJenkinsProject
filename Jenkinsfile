@@ -7,6 +7,7 @@ pipeline {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
     stages {
+        /*
         stage('Build') {
             agent any
             steps {
@@ -16,6 +17,7 @@ pipeline {
                 '''
             }
         }
+        */
 
         stage('Test') {
             agent {
@@ -36,7 +38,7 @@ pipeline {
         stage('Deliver') {
             agent any
             steps {
-                sh 'docker build --tag python-docker:latest .'
+                sh 'docker build --tag schetkiglobe7/python-docker:latest .'
             }
         }
 
