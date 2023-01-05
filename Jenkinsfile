@@ -7,7 +7,7 @@ pipeline {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
 	}
     stages {
-        /*stage('Build') {
+        stage('Build') {
             agent any
             steps {
                 sh '''
@@ -15,7 +15,7 @@ pipeline {
                 docker rm python-docker
                 '''
             }
-        }*/
+        }
 
         /*stage('Test') {
             agent {
