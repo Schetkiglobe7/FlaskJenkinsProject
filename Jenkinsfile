@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     options {
         skipStagesAfterUnstable()
     }
@@ -20,30 +20,24 @@ pipeline {
         */
 
         stage('Test') {
-            agent {
-                docker{
-                    image 'qnib/pytest:latest'
-                }
-            }
+           
             steps {
-                sh 'py.test --junit-xml tests/test-reports/results.xml src/tests/test_main.py'
+                sh 'py.test --junit-xml test-reports/results.xml src/tests/test_main.py'
             }
             post {
                 always {
-                    junit 'tests/test-reports/results.xml'
+                    junit 'test-reports/results.xml'
                 }
             }
         }
 
         stage('Deliver') {
-            agent any
             steps {
                 sh 'docker build --tag schetkiglobe7/python-docker:latest .'
             }
         }
 
         stage('Run') {
-            agent any
             steps {
                 sh '''
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
