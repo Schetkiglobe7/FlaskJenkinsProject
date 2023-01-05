@@ -11,8 +11,8 @@ pipeline {
             agent any
             steps {
                 sh '''
-                docker stop schetkiglobe7/python-docker
-                docker rm schetkiglobe7/python-docker
+                docker stop python-docker
+                docker rm python-docker
                 '''
             }
         }
