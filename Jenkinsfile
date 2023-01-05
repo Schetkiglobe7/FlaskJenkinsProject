@@ -11,8 +11,8 @@ pipeline {
             agent any
             steps {
                 sh '''
-                docker stop python-docker
-                docker rm python-docker
+                docker stop schetkiglobe7/python-docker
+                docker rm schetkiglobe7/python-docker
                 '''
             }
         }
@@ -35,10 +35,6 @@ pipeline {
 
         stage('Deliver') {
             agent any
-            environment {
-                VOLUME = '$(pwd)/sources:/src'
-                IMAGE = 'cdrx/pyinstaller-linux:python2'
-            }
             steps {
                 sh 'docker build --tag schetkiglobe7/python-docker:latest .'
             }
