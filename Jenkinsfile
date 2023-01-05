@@ -39,10 +39,11 @@ pipeline {
 
         stage('Run') {
             steps {
-                sh '''
+                /*sh '''
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 docker push schetkiglobe7/python-docker:latest
-                '''
+                '''*/
+                sh 'docker run -p 8088:8085 --name Pirates -d schetkiglobe7/python-docker:latest'
             }
         }
     }
