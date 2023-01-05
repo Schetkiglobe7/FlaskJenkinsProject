@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        /*stage('Test') {
+        stage('Test') {
             agent {
                 docker{
                     image 'python:2-alpine'
@@ -31,7 +31,7 @@ pipeline {
                     junit 'tests/test-reports/results.xml'
                 }
             }
-        }*/
+        }
 
         stage('Deliver') {
             agent any
@@ -43,13 +43,10 @@ pipeline {
         stage('Run') {
             agent any
             steps {
-                sh 'docker run -p 8085:8085 --name python-docker -d python-docker:latest'
-            /*
                 sh '''
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 docker push schetkiglobe7/python-docker:latest
                 '''
-            */
             }
         }
     }
