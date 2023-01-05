@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Hello, World NEW!"
+    return "Hello, World NEW! 2"
 
 
 @app.route("/health.json")  
