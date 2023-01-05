@@ -12,6 +12,5 @@ def home():
 def health():
     return jsonify({"status": "UP"}), 200   
 
-
 if __name__ == "__main__":
-    app.run(host="localhost", port="8085", debug=True)
+    app.run(host="0.0.0.0", port="8085", debug=True)
